@@ -1,0 +1,23 @@
+web:
+ build: .
+ links:
+  - db:mysql
+ ports:
+  - 4001:80
+ volumes:
+  - /var/www/blazur.loc:/var/www/html
+db:
+ image: mysql:latest
+ command: mysqld --sql_mode=""
+ environment:
+  MYSQL_USERNAME: root
+  MYSQL_ROOT_PASSWORD: krokozavr
+phpmyadmin:
+  image: corbinu/docker-phpmyadmin
+  links:
+    - db:mysql
+  ports:
+    - 4002:80
+  environment:
+    MYSQL_USERNAME: root
+    MYSQL_ROOT_PASSWORD: krokozavr
