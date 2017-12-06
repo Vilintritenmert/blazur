@@ -26,7 +26,7 @@ class UserUpdate extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->remove('role_id');
+            $table->dropColumn('role_id');
         });
     }
 }

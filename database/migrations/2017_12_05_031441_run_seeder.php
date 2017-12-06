@@ -13,7 +13,7 @@ class RunSeeder extends Migration
      */
     public function up()
     {
-        //
+        Artisan::call('db:seed', array('--class' => 'add_roles_and_permissions'));
     }
 
     /**

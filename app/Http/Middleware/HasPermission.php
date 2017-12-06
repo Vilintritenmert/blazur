@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use \Auth;
+use Illuminate\Support\Facades\Log;
 
 class HasPermission
 {
@@ -13,11 +15,12 @@ class HasPermission
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $permissions)
+    public function handle($request, Closure $next)
     {
-        $permissions = array_merge($permissions);
-        if(Auth::guest() || !Auth::user()->hasPermission()){
-            return redirect()->route('home');
+        $arguments = func_get_args();
+        $permissions = array_splice($arguments, 2, count($arguments)-2);
+        if(Auth::guest() || !Auth::user()->hasPermission($permissions)){
+            return redirect()->back()->withErrors(['Access Denied']);
         }
 
         return $next($request);                

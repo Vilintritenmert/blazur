@@ -19,11 +19,15 @@ class User extends Authenticatable
     ];
 
     public function role() {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
-    public function hasPermission(array $perrmissions) {
-        $user_permissions = $this->role->permissions->toArray();
+    public function actions() {
+        return $this->hasMany(UserAction::class);
+    }
+
+    public function hasPermission(array $permissions) {
+        $user_permissions = $this->role->permissions->pluck('name')->toArray();
         foreach($permissions as $permission) {
             if(in_array($permission, $user_permissions)) {
                 return true; 
