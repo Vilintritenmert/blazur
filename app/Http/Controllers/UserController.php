@@ -10,10 +10,8 @@ class UserController extends Controller
 {
     public function update(UserUpdateRequest $request)
     {
-        $availible_fields = array_only($request->all(), ['name', 'email']);
-        $user = User::findOrFail($request->id);
-        $user->fill($availible_fields);
-        $user->save();
+        $update_fields = $request->only(['email', 'name']);
+        User::updateOrCreate(['id'=>$request->id], $update_fields);
 
         return redirect()->back()->with('message', 'Success Saved');
     }
