@@ -35,6 +35,10 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        if (request()->user()->id === (int)$id) {
+            return redirect()->back()->withErorr('You can`t delete self');
+        }
+
         User::destroy($id);
 
         return redirect()->back()->with('message', 'Success Deleted');
