@@ -8,6 +8,7 @@
 5. copy .env.example => .env
 6. in .env file write database name
 7. php artisan migrate
-8. register
-8. Be happy 
+8. php artisan key:generate
+9. register
+10. Be happy 
 
