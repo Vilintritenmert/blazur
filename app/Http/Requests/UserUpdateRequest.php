@@ -40,7 +40,7 @@ class UserUpdateRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                'unique:users,email,id'
+                "unique:users,email,$user_id,id"    
             ]
         ];
     }
